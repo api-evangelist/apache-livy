@@ -1,0 +1,35 @@
+aid: apache-livy
+name: Apache Livy
+description: >-
+  Apache Livy is a service that enables easy interaction with a Spark cluster over a REST interface. It allows submitting Spark jobs or snippets of Spark code, retrieving results synchronously or asynchronously, and managing Spark contexts.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Spark
+  - REST
+  - Interactive Computing
+  - Big Data
+created: '2026-03-16'
+modified: '2026-03-16'
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/apache-livy/refs/heads/main/apis.yml
+specificationVersion: '0.19'
+apis:
+  - aid: apache-livy:apache-livy-rest-api
+    name: Apache Livy REST API
+    description: >-
+      The Livy REST API provides endpoints for creating and managing interactive Spark sessions, submitting batch Spark jobs, executing Spark code statements, and retrieving job results and logs.
+    humanURL: https://livy.apache.org/docs/latest/rest-api.html
+    tags:
+      - REST
+      - Spark
+      - Sessions
+      - Batch Jobs
+    properties:
+      - type: Documentation
+        url: https://livy.apache.org/docs/latest/rest-api.html
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com
