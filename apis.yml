@@ -7,10 +7,10 @@ position: Consumer
 access: 3rd-Party
 image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Spark
-  - REST
-  - Interactive Computing
   - Big Data
+  - Interactive Computing
+  - REST
+  - Spark
 created: '2026-03-16'
 modified: '2026-03-16'
 url: >-
@@ -23,10 +23,10 @@ apis:
       The Livy REST API provides endpoints for creating and managing interactive Spark sessions, submitting batch Spark jobs, executing Spark code statements, and retrieving job results and logs.
     humanURL: https://livy.apache.org/docs/latest/rest-api.html
     tags:
-      - REST
-      - Spark
-      - Sessions
       - Batch Jobs
+      - REST
+      - Sessions
+      - Spark
     properties:
       - type: Documentation
         url: https://livy.apache.org/docs/latest/rest-api.html
