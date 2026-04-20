@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/apache-livy/refs/heads/main/json-schema/rest-api-statement-schema.json",
+  "title": "Statement",
+  "description": "A code statement executed in a session",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Statement identifier",
+      "example": 0
+    },
+    "code": {
+      "type": "string",
+      "description": "The code that was executed",
+      "example": "sc.parallelize([1,2,3]).count()"
+    },
+    "state": {
+      "type": "string",
+      "description": "Statement execution state",
+      "enum": [
+        "waiting",
+        "running",
+        "available",
+        "error",
+        "cancelling",
+        "cancelled"
+      ],
+      "example": "available"
+    },
+    "output": {
+      "type": "object",
+      "description": "Statement output",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "ok"
+        },
+        "execution_count": {
+          "type": "integer",
+          "example": 0
+        },
+        "data": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

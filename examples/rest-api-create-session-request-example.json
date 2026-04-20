@@ -1,0 +1,19 @@
+{
+  "kind": "pyspark",
+  "proxyUser": "alice",
+  "jars": [
+    "example-value"
+  ],
+  "pyFiles": [
+    "example-value"
+  ],
+  "files": [
+    "example-value"
+  ],
+  "driverMemory": "512m",
+  "driverCores": 1,
+  "executorMemory": "1g",
+  "executorCores": 1,
+  "numExecutors": 2,
+  "conf": {}
+}

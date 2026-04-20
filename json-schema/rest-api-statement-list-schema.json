@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/apache-livy/refs/heads/main/json-schema/rest-api-statement-list-schema.json",
+  "title": "StatementList",
+  "description": "List of statements",
+  "type": "object",
+  "properties": {
+    "total_statements": {
+      "type": "integer",
+      "example": 5
+    },
+    "statements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Statement"
+      }
+    }
+  }
+}

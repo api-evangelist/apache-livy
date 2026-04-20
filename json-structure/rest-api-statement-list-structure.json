@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/apache-livy/refs/heads/main/json-structure/rest-api-statement-list-structure.json",
+  "name": "StatementList",
+  "description": "List of statements",
+  "properties": {
+    "total_statements": {
+      "type": "integer",
+      "example": 5
+    },
+    "statements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Statement"
+      }
+    }
+  }
+}

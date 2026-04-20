@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/apache-livy/refs/heads/main/json-structure/rest-api-statement-request-structure.json",
+  "name": "StatementRequest",
+  "description": "Request to execute a code statement",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Code to execute",
+      "example": "1 + 1"
+    },
+    "kind": {
+      "type": "string",
+      "description": "Code type (defaults to session kind)",
+      "enum": [
+        "spark",
+        "pyspark",
+        "sparkr",
+        "sql"
+      ]
+    }
+  },
+  "required": [
+    "code"
+  ]
+}

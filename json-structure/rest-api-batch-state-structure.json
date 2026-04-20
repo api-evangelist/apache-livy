@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/apache-livy/refs/heads/main/json-structure/rest-api-batch-state-structure.json",
+  "name": "BatchState",
+  "description": "Current batch job state",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "example": 0
+    },
+    "state": {
+      "type": "string",
+      "example": "success"
+    }
+  }
+}

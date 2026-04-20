@@ -1,0 +1,18 @@
+{
+  "file": "s3://my-bucket/jobs/my-spark-job.py",
+  "proxyUser": "alice",
+  "className": "com.example.MySparkJob",
+  "args": [
+    "example-value"
+  ],
+  "jars": [
+    "example-value"
+  ],
+  "pyFiles": [
+    "example-value"
+  ],
+  "driverMemory": "512m",
+  "executorMemory": "1g",
+  "numExecutors": 4,
+  "conf": {}
+}

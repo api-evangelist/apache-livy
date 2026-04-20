@@ -1,0 +1,91 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Apache Livy"
+  description: "Vocabulary for the Apache Livy REST API and Spark job management workflows."
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+operational:
+  apis:
+    - namespace: livy-rest-api
+      name: Apache Livy REST API
+      version: "0.8.0"
+      baseUrl: http://localhost:8998
+      status: active
+
+  resources:
+    - name: sessions
+      description: Interactive Spark sessions for code execution
+      apis: [livy-rest-api]
+      actions: [list, create, get, delete, get-state, get-log]
+    - name: statements
+      description: Code statements executed within sessions
+      apis: [livy-rest-api]
+      actions: [list, run, get]
+    - name: batches
+      description: Batch Spark job submissions
+      apis: [livy-rest-api]
+      actions: [list, create, get, delete, get-state, get-log]
+
+  actions:
+    - name: list
+      httpMethod: GET
+      pattern: read
+    - name: create
+      httpMethod: POST
+      pattern: write
+    - name: get
+      httpMethod: GET
+      pattern: read
+    - name: delete
+      httpMethod: DELETE
+      pattern: destructive
+    - name: run
+      httpMethod: POST
+      pattern: write
+    - name: get-state
+      httpMethod: GET
+      pattern: read
+    - name: get-log
+      httpMethod: GET
+      pattern: read
+
+capability:
+  workflows:
+    - name: Spark Job Management
+      file: capabilities/spark-job-management.yaml
+      toolCount: 7
+      personas:
+        - Data Engineer
+        - Data Scientist
+
+  personas:
+    - id: data-engineer
+      name: Data Engineer
+      description: Engineers who submit and monitor batch Spark jobs via Livy
+      workflows: [Spark Job Management]
+    - id: data-scientist
+      name: Data Scientist
+      description: Scientists who use interactive Spark sessions for exploratory analysis
+      workflows: [Spark Job Management]
+
+  namespaces:
+    - name: livy-rest-api
+      type: consumed
+    - name: livy-spark-management-api
+      type: rest-exposed
+      port: 8080
+    - name: livy-spark-management-mcp
+      type: mcp-exposed
+      port: 9090
+
+crossReference:
+  - resource: sessions
+    operations: [listSessions, createSession, getSession, deleteSession, getSessionState, getSessionLog]
+    workflows: [Spark Job Management]
+    personas: [Data Scientist, Data Engineer]
+  - resource: batches
+    operations: [listBatches, createBatch, getBatch, deleteBatch, getBatchState, getBatchLog]
+    workflows: [Spark Job Management]
+    personas: [Data Engineer]

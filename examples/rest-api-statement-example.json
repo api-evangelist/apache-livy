@@ -1,0 +1,10 @@
+{
+  "id": 0,
+  "code": "sc.parallelize([1,2,3]).count()",
+  "state": "available",
+  "output": {
+    "status": "ok",
+    "execution_count": 0,
+    "data": {}
+  }
+}

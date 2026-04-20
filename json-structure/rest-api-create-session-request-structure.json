@@ -1,0 +1,75 @@
+{
+  "type": "object",
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/apache-livy/refs/heads/main/json-structure/rest-api-create-session-request-structure.json",
+  "name": "CreateSessionRequest",
+  "description": "Parameters for creating an interactive session",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "description": "Session programming language",
+      "enum": [
+        "spark",
+        "pyspark",
+        "sparkr",
+        "sql"
+      ],
+      "example": "pyspark"
+    },
+    "proxyUser": {
+      "type": "string",
+      "description": "User to impersonate when running the session",
+      "example": "alice"
+    },
+    "jars": {
+      "type": "array",
+      "description": "JARs to include on the classpath",
+      "items": {
+        "type": "string"
+      }
+    },
+    "pyFiles": {
+      "type": "array",
+      "description": "Python files to include",
+      "items": {
+        "type": "string"
+      }
+    },
+    "files": {
+      "type": "array",
+      "description": "Files to include",
+      "items": {
+        "type": "string"
+      }
+    },
+    "driverMemory": {
+      "type": "string",
+      "description": "Driver memory amount",
+      "example": "512m"
+    },
+    "driverCores": {
+      "type": "integer",
+      "description": "Number of driver cores",
+      "example": 1
+    },
+    "executorMemory": {
+      "type": "string",
+      "description": "Executor memory amount",
+      "example": "1g"
+    },
+    "executorCores": {
+      "type": "integer",
+      "description": "Number of executor cores",
+      "example": 1
+    },
+    "numExecutors": {
+      "type": "integer",
+      "description": "Number of executors",
+      "example": 2
+    },
+    "conf": {
+      "type": "object",
+      "description": "Spark configuration key-value pairs"
+    }
+  }
+}

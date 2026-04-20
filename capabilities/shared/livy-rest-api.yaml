@@ -1,0 +1,161 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Apache Livy REST API"
+  description: "Shared per-API capability for the Apache Livy REST API covering interactive Spark sessions, statement execution, and batch job management."
+  tags:
+    - Apache Livy
+    - Batch Processing
+    - Spark
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      LIVY_URL: LIVY_URL
+
+capability:
+  consumes:
+    - type: http
+      namespace: livy-rest-api
+      baseUri: http://localhost:8998
+      description: "Apache Livy REST API"
+      resources:
+        - name: sessions
+          path: /sessions
+          description: Interactive Spark session management
+          operations:
+            - name: list-sessions
+              method: GET
+              description: List all sessions
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-session
+              method: POST
+              description: Create a Spark session
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-session
+              method: GET
+              description: Get session details
+              inputParameters:
+                - name: sessionId
+                  in: path
+                  type: integer
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: delete-session
+              method: DELETE
+              description: Delete a session
+              inputParameters:
+                - name: sessionId
+                  in: path
+                  type: integer
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: statements
+          path: /sessions/{sessionId}/statements
+          description: Code statement execution
+          operations:
+            - name: run-statement
+              method: POST
+              description: Execute code in session
+              inputParameters:
+                - name: sessionId
+                  in: path
+                  type: integer
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: batches
+          path: /batches
+          description: Batch Spark job management
+          operations:
+            - name: list-batches
+              method: GET
+              description: List batch jobs
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-batch
+              method: POST
+              description: Submit batch job
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: livy-api-exposed
+      resources:
+        - path: /v1/sessions
+          operations:
+            - method: GET
+              name: list-sessions
+              call: "livy-rest-api.list-sessions"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: livy-api-mcp
+      transport: http
+      tools:
+        - name: list-spark-sessions
+          description: List all active Spark sessions
+          hints:
+            readOnly: true
+          call: "livy-rest-api.list-sessions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-spark-session
+          description: Create a new interactive Spark session
+          hints:
+            readOnly: false
+          call: "livy-rest-api.create-session"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: run-spark-code
+          description: Execute Spark code in an interactive session
+          hints:
+            readOnly: false
+          call: "livy-rest-api.run-statement"
+          with:
+            sessionId: "tools.session_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: submit-batch-job
+          description: Submit a batch Spark job
+          hints:
+            readOnly: false
+          call: "livy-rest-api.create-batch"
+          outputParameters:
+            - type: object
+              mapping: "$."

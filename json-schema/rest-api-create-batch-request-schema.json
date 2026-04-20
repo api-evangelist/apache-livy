@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/apache-livy/refs/heads/main/json-schema/rest-api-create-batch-request-schema.json",
+  "title": "CreateBatchRequest",
+  "description": "Parameters for creating a batch Spark job",
+  "type": "object",
+  "properties": {
+    "file": {
+      "type": "string",
+      "description": "File to execute",
+      "example": "s3://my-bucket/jobs/my-spark-job.py"
+    },
+    "proxyUser": {
+      "type": "string",
+      "description": "User to impersonate",
+      "example": "alice"
+    },
+    "className": {
+      "type": "string",
+      "description": "Application Java/Spark main class",
+      "example": "com.example.MySparkJob"
+    },
+    "args": {
+      "type": "array",
+      "description": "Command line arguments",
+      "items": {
+        "type": "string"
+      }
+    },
+    "jars": {
+      "type": "array",
+      "description": "JARs to include",
+      "items": {
+        "type": "string"
+      }
+    },
+    "pyFiles": {
+      "type": "array",
+      "description": "Python files",
+      "items": {
+        "type": "string"
+      }
+    },
+    "driverMemory": {
+      "type": "string",
+      "description": "Driver memory",
+      "example": "512m"
+    },
+    "executorMemory": {
+      "type": "string",
+      "description": "Executor memory",
+      "example": "1g"
+    },
+    "numExecutors": {
+      "type": "integer",
+      "description": "Number of executors",
+      "example": 4
+    },
+    "conf": {
+      "type": "object",
+      "description": "Spark configuration"
+    }
+  },
+  "required": [
+    "file"
+  ]
+}

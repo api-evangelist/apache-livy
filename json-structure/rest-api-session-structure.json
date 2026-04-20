@@ -1,0 +1,67 @@
+{
+  "type": "object",
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/apache-livy/refs/heads/main/json-structure/rest-api-session-structure.json",
+  "name": "Session",
+  "description": "An interactive Spark session",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Session identifier",
+      "example": 0
+    },
+    "appId": {
+      "type": "string",
+      "description": "Spark application ID",
+      "example": "application_1234567890_0001"
+    },
+    "owner": {
+      "type": "string",
+      "description": "Session owner",
+      "example": "hdfs"
+    },
+    "proxyUser": {
+      "type": "string",
+      "description": "Proxy user for the session",
+      "example": "alice"
+    },
+    "kind": {
+      "type": "string",
+      "description": "Session type",
+      "enum": [
+        "spark",
+        "pyspark",
+        "sparkr",
+        "sql"
+      ],
+      "example": "pyspark"
+    },
+    "log": {
+      "type": "array",
+      "description": "Recent log lines",
+      "items": {
+        "type": "string"
+      }
+    },
+    "state": {
+      "type": "string",
+      "description": "Session state",
+      "enum": [
+        "not_started",
+        "starting",
+        "idle",
+        "busy",
+        "shutting_down",
+        "error",
+        "dead",
+        "killed",
+        "success"
+      ],
+      "example": "idle"
+    },
+    "appInfo": {
+      "type": "object",
+      "description": "Spark application information"
+    }
+  }
+}

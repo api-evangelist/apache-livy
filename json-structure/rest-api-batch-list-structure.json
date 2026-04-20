@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/apache-livy/refs/heads/main/json-structure/rest-api-batch-list-structure.json",
+  "name": "BatchList",
+  "description": "Paginated list of batch jobs",
+  "properties": {
+    "from": {
+      "type": "integer",
+      "example": 0
+    },
+    "total": {
+      "type": "integer",
+      "example": 3
+    },
+    "sessions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Batch"
+      }
+    }
+  }
+}

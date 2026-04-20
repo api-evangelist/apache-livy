@@ -1,0 +1,12 @@
+{
+  "id": 0,
+  "appId": "application_1234567890_0001",
+  "owner": "hdfs",
+  "proxyUser": "alice",
+  "kind": "pyspark",
+  "log": [
+    "example-value"
+  ],
+  "state": "idle",
+  "appInfo": {}
+}

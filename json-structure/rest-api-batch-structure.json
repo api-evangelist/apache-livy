@@ -1,0 +1,43 @@
+{
+  "type": "object",
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/apache-livy/refs/heads/main/json-structure/rest-api-batch-structure.json",
+  "name": "Batch",
+  "description": "A batch Spark job",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Batch identifier",
+      "example": 0
+    },
+    "appId": {
+      "type": "string",
+      "description": "Spark application ID",
+      "example": "application_1234567890_0001"
+    },
+    "appInfo": {
+      "type": "object",
+      "description": "Spark application information"
+    },
+    "log": {
+      "type": "array",
+      "description": "Recent log lines",
+      "items": {
+        "type": "string"
+      }
+    },
+    "state": {
+      "type": "string",
+      "description": "Batch state",
+      "enum": [
+        "not_started",
+        "starting",
+        "running",
+        "dead",
+        "shutting_down",
+        "success"
+      ],
+      "example": "success"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/apache-livy/refs/heads/main/json-schema/rest-api-batch-state-schema.json",
+  "title": "BatchState",
+  "description": "Current batch job state",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "example": 0
+    },
+    "state": {
+      "type": "string",
+      "example": "success"
+    }
+  }
+}

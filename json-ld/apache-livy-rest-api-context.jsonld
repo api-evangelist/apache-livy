@@ -1,0 +1,152 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "livy": "https://apache-livy.apache.org/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "StatementList": "livy:StatementList",
+    "CreateSessionRequest": "livy:CreateSessionRequest",
+    "Log": "livy:Log",
+    "StatementRequest": "livy:StatementRequest",
+    "BatchState": "livy:BatchState",
+    "BatchList": "livy:BatchList",
+    "CreateBatchRequest": "livy:CreateBatchRequest",
+    "Batch": "livy:Batch",
+    "Session": "livy:Session",
+    "Statement": "livy:Statement",
+    "SessionList": "livy:SessionList",
+    "SessionState": "livy:SessionState",
+    "totalStatements": {
+      "@id": "livy:total_statements",
+      "@type": "xsd:integer"
+    },
+    "statements": {
+      "@id": "livy:statements",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "kind": {
+      "@id": "livy:kind",
+      "@type": "xsd:string"
+    },
+    "proxyUser": {
+      "@id": "livy:proxyUser",
+      "@type": "xsd:string"
+    },
+    "jars": {
+      "@id": "livy:jars",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "pyFiles": {
+      "@id": "livy:pyFiles",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "files": {
+      "@id": "livy:files",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "driverMemory": {
+      "@id": "livy:driverMemory",
+      "@type": "xsd:string"
+    },
+    "driverCores": {
+      "@id": "livy:driverCores",
+      "@type": "xsd:integer"
+    },
+    "executorMemory": {
+      "@id": "livy:executorMemory",
+      "@type": "xsd:string"
+    },
+    "executorCores": {
+      "@id": "livy:executorCores",
+      "@type": "xsd:integer"
+    },
+    "numExecutors": {
+      "@id": "livy:numExecutors",
+      "@type": "xsd:integer"
+    },
+    "conf": {
+      "@id": "livy:conf",
+      "@type": "@id"
+    },
+    "id": {
+      "@id": "livy:id",
+      "@type": "xsd:integer"
+    },
+    "from": {
+      "@id": "livy:from",
+      "@type": "xsd:integer"
+    },
+    "size": {
+      "@id": "livy:size",
+      "@type": "xsd:integer"
+    },
+    "log": {
+      "@id": "livy:log",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "code": {
+      "@id": "livy:code",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "livy:state",
+      "@type": "xsd:string"
+    },
+    "total": {
+      "@id": "livy:total",
+      "@type": "xsd:integer"
+    },
+    "sessions": {
+      "@id": "livy:sessions",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "file": {
+      "@id": "livy:file",
+      "@type": "xsd:string"
+    },
+    "className": {
+      "@id": "livy:className",
+      "@type": "xsd:string"
+    },
+    "args": {
+      "@id": "livy:args",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "appId": {
+      "@id": "livy:appId",
+      "@type": "xsd:string"
+    },
+    "appInfo": {
+      "@id": "livy:appInfo",
+      "@type": "@id"
+    },
+    "owner": {
+      "@id": "livy:owner",
+      "@type": "xsd:string"
+    },
+    "output": {
+      "@id": "livy:output",
+      "@type": "@id"
+    },
+    "status": {
+      "@id": "livy:status",
+      "@type": "xsd:string"
+    },
+    "executionCount": {
+      "@id": "livy:execution_count",
+      "@type": "xsd:integer"
+    },
+    "data": {
+      "@id": "livy:data",
+      "@type": "@id"
+    }
+  }
+}

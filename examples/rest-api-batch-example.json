@@ -1,0 +1,9 @@
+{
+  "id": 0,
+  "appId": "application_1234567890_0001",
+  "appInfo": {},
+  "log": [
+    "example-value"
+  ],
+  "state": "success"
+}

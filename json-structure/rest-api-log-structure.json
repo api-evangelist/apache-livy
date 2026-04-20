@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/apache-livy/refs/heads/main/json-structure/rest-api-log-structure.json",
+  "name": "Log",
+  "description": "Log output",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "example": 0
+    },
+    "from": {
+      "type": "integer",
+      "example": 0
+    },
+    "size": {
+      "type": "integer",
+      "example": 100
+    },
+    "log": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
