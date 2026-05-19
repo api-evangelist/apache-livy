@@ -1,0 +1,164 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Apache Livy REST API — Statements
+  description: 'Apache Livy REST API — Statements. 3 operations. Lead operation: Apache livy Apache Livy List Statements.
+    Self-contained Naftiko capability covering one Apache Livy business surface.'
+  tags:
+  - Apache Livy
+  - Statements
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    APACHE_LIVY_API_KEY: APACHE_LIVY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-statements
+    baseUri: http://localhost:8998
+    description: Apache Livy REST API — Statements business capability. Self-contained, no shared references.
+    resources:
+    - name: sessions-sessionId-statements
+      path: /sessions/{sessionId}/statements
+      operations:
+      - name: liststatements
+        method: GET
+        description: Apache livy Apache Livy List Statements
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sessionId
+          in: path
+          type: integer
+          required: true
+      - name: runstatement
+        method: POST
+        description: Apache livy Apache Livy Run Statement
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sessionId
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: sessions-sessionId-statements-statementId
+      path: /sessions/{sessionId}/statements/{statementId}
+      operations:
+      - name: getstatement
+        method: GET
+        description: Apache livy Apache Livy Get Statement
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sessionId
+          in: path
+          type: integer
+          required: true
+        - name: statementId
+          in: path
+          type: integer
+          required: true
+  exposes:
+  - type: rest
+    namespace: rest-statements-rest
+    port: 8080
+    description: REST adapter for Apache Livy REST API — Statements. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/sessions/{sessionid}/statements
+      name: sessions-sessionid-statements
+      description: REST surface for sessions-sessionId-statements.
+      operations:
+      - method: GET
+        name: liststatements
+        description: Apache livy Apache Livy List Statements
+        call: rest-statements.liststatements
+        with:
+          sessionId: rest.sessionId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: runstatement
+        description: Apache livy Apache Livy Run Statement
+        call: rest-statements.runstatement
+        with:
+          sessionId: rest.sessionId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/sessions/{sessionid}/statements/{statementid}
+      name: sessions-sessionid-statements-statementid
+      description: REST surface for sessions-sessionId-statements-statementId.
+      operations:
+      - method: GET
+        name: getstatement
+        description: Apache livy Apache Livy Get Statement
+        call: rest-statements.getstatement
+        with:
+          sessionId: rest.sessionId
+          statementId: rest.statementId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-statements-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Apache Livy REST API — Statements. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: apache-livy-apache-livy-list
+      description: Apache livy Apache Livy List Statements
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-statements.liststatements
+      with:
+        sessionId: tools.sessionId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: apache-livy-apache-livy-run
+      description: Apache livy Apache Livy Run Statement
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-statements.runstatement
+      with:
+        sessionId: tools.sessionId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: apache-livy-apache-livy-get
+      description: Apache livy Apache Livy Get Statement
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-statements.getstatement
+      with:
+        sessionId: tools.sessionId
+        statementId: tools.statementId
+      outputParameters:
+      - type: object
+        mapping: $.
