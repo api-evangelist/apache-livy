@@ -33,11 +33,11 @@ apis:
     url: https://livy.apache.org/docs/latest/rest-api.html
   - type: OpenAPI
     url: openapi/apache-livy-rest-api.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/rest-batches.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/rest-sessions.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/rest-statements.yaml
 common:
 - type: GitHubOrganization
