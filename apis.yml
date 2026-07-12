@@ -40,6 +40,10 @@ apis:
   - type: X-NaftikoCapability
     url: capabilities/rest-statements.yaml
 common:
+- type: VulnerabilityDisclosure
+  url: security/apache-livy-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/apache-livy-domain-security.yml
 - type: GitHubOrganization
   url: https://github.com/apache
 - type: GitHubRepository
