@@ -40,6 +40,8 @@ apis:
   - type: X-NaftikoCapability
     url: capabilities/rest-statements.yaml
 common:
+- type: AgenticAccess
+  url: agentic-access/apache-livy-agentic-access.yml
 - type: VulnerabilityDisclosure
   url: security/apache-livy-vulnerability-disclosure.yml
 - type: DomainSecurity
