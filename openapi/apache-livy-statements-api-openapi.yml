@@ -1,0 +1,198 @@
+openapi: 3.0.3
+info:
+  title: Apache Livy REST Batches Statements API
+  description: REST API for interacting with Apache Spark clusters via Livy. Supports interactive sessions, batch job submission, statement execution, and result retrieval.
+  version: 0.8.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  contact:
+    email: dev@livy.apache.org
+servers:
+- url: http://localhost:8998
+  description: Apache Livy server
+tags:
+- name: Statements
+  description: Code statement execution within sessions
+paths:
+  /sessions/{sessionId}/statements:
+    get:
+      operationId: listStatements
+      summary: Apache livy Apache Livy List Statements
+      description: List all statements executed in a session.
+      tags:
+      - Statements
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+      responses:
+        '200':
+          description: List of statements
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatementList'
+              examples:
+                listStatements200Example:
+                  summary: Default listStatements 200 response
+                  x-microcks-default: true
+                  value:
+                    total_statements: 5
+                    statements: []
+    post:
+      operationId: runStatement
+      summary: Apache livy Apache Livy Run Statement
+      description: Execute a code statement in the session.
+      tags:
+      - Statements
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatementRequest'
+            examples:
+              runStatementRequestExample:
+                summary: Default runStatement request
+                x-microcks-default: true
+                value:
+                  code: 1 + 1
+                  kind: spark
+      responses:
+        '200':
+          description: Statement result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statement'
+              examples:
+                runStatement200Example:
+                  summary: Default runStatement 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    code: sc.parallelize([1,2,3]).count()
+                    state: available
+                    output: {}
+  /sessions/{sessionId}/statements/{statementId}:
+    get:
+      operationId: getStatement
+      summary: Apache livy Apache Livy Get Statement
+      description: Get the status and output of a specific statement.
+      tags:
+      - Statements
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+      - name: statementId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+      responses:
+        '200':
+          description: Statement details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statement'
+              examples:
+                getStatement200Example:
+                  summary: Default getStatement 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    code: sc.parallelize([1,2,3]).count()
+                    state: available
+                    output: {}
+components:
+  schemas:
+    Statement:
+      type: object
+      description: A code statement executed in a session
+      properties:
+        id:
+          type: integer
+          description: Statement identifier
+          example: 0
+        code:
+          type: string
+          description: The code that was executed
+          example: sc.parallelize([1,2,3]).count()
+        state:
+          type: string
+          description: Statement execution state
+          enum:
+          - waiting
+          - running
+          - available
+          - error
+          - cancelling
+          - cancelled
+          example: available
+        output:
+          type: object
+          description: Statement output
+          properties:
+            status:
+              type: string
+              example: ok
+            execution_count:
+              type: integer
+              example: 0
+            data:
+              type: object
+    StatementRequest:
+      type: object
+      description: Request to execute a code statement
+      required:
+      - code
+      properties:
+        code:
+          type: string
+          description: Code to execute
+          example: 1 + 1
+        kind:
+          type: string
+          description: Code type (defaults to session kind)
+          enum:
+          - spark
+          - pyspark
+          - sparkr
+          - sql
+    StatementList:
+      type: object
+      description: List of statements
+      properties:
+        total_statements:
+          type: integer
+          example: 5
+        statements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Statement'

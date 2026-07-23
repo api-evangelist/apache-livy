@@ -1,0 +1,392 @@
+openapi: 3.0.3
+info:
+  title: Apache Livy REST Batches Sessions API
+  description: REST API for interacting with Apache Spark clusters via Livy. Supports interactive sessions, batch job submission, statement execution, and result retrieval.
+  version: 0.8.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  contact:
+    email: dev@livy.apache.org
+servers:
+- url: http://localhost:8998
+  description: Apache Livy server
+tags:
+- name: Sessions
+  description: Interactive Spark session management
+paths:
+  /sessions:
+    get:
+      operationId: listSessions
+      summary: Apache livy Apache Livy List Sessions
+      description: List all active interactive Spark sessions.
+      tags:
+      - Sessions
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: from
+        in: query
+        schema:
+          type: integer
+        example: 0
+        description: Session index to start from
+      - name: size
+        in: query
+        schema:
+          type: integer
+        example: 20
+        description: Number of sessions to return
+      responses:
+        '200':
+          description: List of sessions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionList'
+              examples:
+                listSessions200Example:
+                  summary: Default listSessions 200 response
+                  x-microcks-default: true
+                  value:
+                    from: 0
+                    total: 5
+                    sessions: []
+    post:
+      operationId: createSession
+      summary: Apache livy Apache Livy Create Session
+      description: Create a new interactive Spark session.
+      tags:
+      - Sessions
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSessionRequest'
+            examples:
+              createSessionRequestExample:
+                summary: Default createSession request
+                x-microcks-default: true
+                value:
+                  kind: pyspark
+                  proxyUser: alice
+                  jars: []
+                  pyFiles: []
+                  files: []
+                  driverMemory: 512m
+                  driverCores: 1
+                  executorMemory: 1g
+                  executorCores: 1
+                  numExecutors: 2
+                  conf: {}
+      responses:
+        '201':
+          description: Session created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+              examples:
+                createSession201Example:
+                  summary: Default createSession 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    appId: application_1234567890_0001
+                    owner: hdfs
+                    proxyUser: alice
+                    kind: pyspark
+                    log: []
+                    state: idle
+                    appInfo: {}
+  /sessions/{sessionId}:
+    get:
+      operationId: getSession
+      summary: Apache livy Apache Livy Get Session
+      description: Get the details and state of a specific session.
+      tags:
+      - Sessions
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+        description: Session identifier
+      responses:
+        '200':
+          description: Session details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+              examples:
+                getSession200Example:
+                  summary: Default getSession 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    appId: application_1234567890_0001
+                    owner: hdfs
+                    proxyUser: alice
+                    kind: pyspark
+                    log: []
+                    state: idle
+                    appInfo: {}
+        '404':
+          description: Session not found
+    delete:
+      operationId: deleteSession
+      summary: Apache livy Apache Livy Delete Session
+      description: Delete an interactive session and its associated Spark context.
+      tags:
+      - Sessions
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+        description: Session identifier
+      responses:
+        '200':
+          description: Session deleted
+  /sessions/{sessionId}/state:
+    get:
+      operationId: getSessionState
+      summary: Apache livy Apache Livy Get Session State
+      description: Get the current state of a session.
+      tags:
+      - Sessions
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+        description: Session identifier
+      responses:
+        '200':
+          description: Session state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionState'
+              examples:
+                getSessionState200Example:
+                  summary: Default getSessionState 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    state: idle
+  /sessions/{sessionId}/log:
+    get:
+      operationId: getSessionLog
+      summary: Apache livy Apache Livy Get Session Log
+      description: Retrieve log lines from a session.
+      tags:
+      - Sessions
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+      - name: from
+        in: query
+        schema:
+          type: integer
+        example: 0
+        description: Log line index to start from
+      - name: size
+        in: query
+        schema:
+          type: integer
+        example: 100
+        description: Number of log lines to return
+      responses:
+        '200':
+          description: Session log
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+              examples:
+                getSessionLog200Example:
+                  summary: Default getSessionLog 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    from: 0
+                    size: 100
+                    log: []
+components:
+  schemas:
+    Log:
+      type: object
+      description: Log output
+      properties:
+        id:
+          type: integer
+          example: 0
+        from:
+          type: integer
+          example: 0
+        size:
+          type: integer
+          example: 100
+        log:
+          type: array
+          items:
+            type: string
+    SessionList:
+      type: object
+      description: Paginated list of sessions
+      properties:
+        from:
+          type: integer
+          example: 0
+        total:
+          type: integer
+          example: 5
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Session'
+    Session:
+      type: object
+      description: An interactive Spark session
+      properties:
+        id:
+          type: integer
+          description: Session identifier
+          example: 0
+        appId:
+          type: string
+          description: Spark application ID
+          example: application_1234567890_0001
+        owner:
+          type: string
+          description: Session owner
+          example: hdfs
+        proxyUser:
+          type: string
+          description: Proxy user for the session
+          example: alice
+        kind:
+          type: string
+          description: Session type
+          enum:
+          - spark
+          - pyspark
+          - sparkr
+          - sql
+          example: pyspark
+        log:
+          type: array
+          description: Recent log lines
+          items:
+            type: string
+        state:
+          type: string
+          description: Session state
+          enum:
+          - not_started
+          - starting
+          - idle
+          - busy
+          - shutting_down
+          - error
+          - dead
+          - killed
+          - success
+          example: idle
+        appInfo:
+          type: object
+          description: Spark application information
+    CreateSessionRequest:
+      type: object
+      description: Parameters for creating an interactive session
+      properties:
+        kind:
+          type: string
+          description: Session programming language
+          enum:
+          - spark
+          - pyspark
+          - sparkr
+          - sql
+          example: pyspark
+        proxyUser:
+          type: string
+          description: User to impersonate when running the session
+          example: alice
+        jars:
+          type: array
+          description: JARs to include on the classpath
+          items:
+            type: string
+        pyFiles:
+          type: array
+          description: Python files to include
+          items:
+            type: string
+        files:
+          type: array
+          description: Files to include
+          items:
+            type: string
+        driverMemory:
+          type: string
+          description: Driver memory amount
+          example: 512m
+        driverCores:
+          type: integer
+          description: Number of driver cores
+          example: 1
+        executorMemory:
+          type: string
+          description: Executor memory amount
+          example: 1g
+        executorCores:
+          type: integer
+          description: Number of executor cores
+          example: 1
+        numExecutors:
+          type: integer
+          description: Number of executors
+          example: 2
+        conf:
+          type: object
+          description: Spark configuration key-value pairs
+    SessionState:
+      type: object
+      description: Current session state
+      properties:
+        id:
+          type: integer
+          example: 0
+        state:
+          type: string
+          example: idle

@@ -1,0 +1,351 @@
+openapi: 3.0.3
+info:
+  title: Apache Livy REST Batches API
+  description: REST API for interacting with Apache Spark clusters via Livy. Supports interactive sessions, batch job submission, statement execution, and result retrieval.
+  version: 0.8.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  contact:
+    email: dev@livy.apache.org
+servers:
+- url: http://localhost:8998
+  description: Apache Livy server
+tags:
+- name: Batches
+  description: Batch Spark job submission
+paths:
+  /batches:
+    get:
+      operationId: listBatches
+      summary: Apache livy Apache Livy List Batches
+      description: List all batch Spark jobs.
+      tags:
+      - Batches
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: from
+        in: query
+        schema:
+          type: integer
+        example: 0
+      - name: size
+        in: query
+        schema:
+          type: integer
+        example: 20
+      responses:
+        '200':
+          description: List of batch jobs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchList'
+              examples:
+                listBatches200Example:
+                  summary: Default listBatches 200 response
+                  x-microcks-default: true
+                  value:
+                    from: 0
+                    total: 3
+                    sessions: []
+    post:
+      operationId: createBatch
+      summary: Apache livy Apache Livy Create Batch
+      description: Submit a new batch Spark job.
+      tags:
+      - Batches
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBatchRequest'
+            examples:
+              createBatchRequestExample:
+                summary: Default createBatch request
+                x-microcks-default: true
+                value:
+                  file: s3://my-bucket/jobs/my-spark-job.py
+                  proxyUser: alice
+                  className: com.example.MySparkJob
+                  args: []
+                  jars: []
+                  pyFiles: []
+                  driverMemory: 512m
+                  executorMemory: 1g
+                  numExecutors: 4
+                  conf: {}
+      responses:
+        '201':
+          description: Batch job created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Batch'
+              examples:
+                createBatch201Example:
+                  summary: Default createBatch 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    appId: application_1234567890_0001
+                    appInfo: {}
+                    log: []
+                    state: success
+  /batches/{batchId}:
+    get:
+      operationId: getBatch
+      summary: Apache livy Apache Livy Get Batch
+      description: Get the details of a specific batch job.
+      tags:
+      - Batches
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: batchId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+      responses:
+        '200':
+          description: Batch job details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Batch'
+              examples:
+                getBatch200Example:
+                  summary: Default getBatch 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    appId: application_1234567890_0001
+                    appInfo: {}
+                    log: []
+                    state: success
+        '404':
+          description: Batch not found
+    delete:
+      operationId: deleteBatch
+      summary: Apache livy Apache Livy Delete Batch
+      description: Cancel and delete a batch Spark job.
+      tags:
+      - Batches
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: batchId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+      responses:
+        '200':
+          description: Batch deleted
+  /batches/{batchId}/state:
+    get:
+      operationId: getBatchState
+      summary: Apache livy Apache Livy Get Batch State
+      description: Get the current state of a batch job.
+      tags:
+      - Batches
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: batchId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+      responses:
+        '200':
+          description: Batch state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchState'
+              examples:
+                getBatchState200Example:
+                  summary: Default getBatchState 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    state: success
+  /batches/{batchId}/log:
+    get:
+      operationId: getBatchLog
+      summary: Apache livy Apache Livy Get Batch Log
+      description: Retrieve log lines from a batch job.
+      tags:
+      - Batches
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: batchId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+      - name: from
+        in: query
+        schema:
+          type: integer
+        example: 0
+      - name: size
+        in: query
+        schema:
+          type: integer
+        example: 100
+      responses:
+        '200':
+          description: Batch log
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+              examples:
+                getBatchLog200Example:
+                  summary: Default getBatchLog 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    from: 0
+                    size: 100
+                    log: []
+components:
+  schemas:
+    Log:
+      type: object
+      description: Log output
+      properties:
+        id:
+          type: integer
+          example: 0
+        from:
+          type: integer
+          example: 0
+        size:
+          type: integer
+          example: 100
+        log:
+          type: array
+          items:
+            type: string
+    CreateBatchRequest:
+      type: object
+      description: Parameters for creating a batch Spark job
+      required:
+      - file
+      properties:
+        file:
+          type: string
+          description: File to execute
+          example: s3://my-bucket/jobs/my-spark-job.py
+        proxyUser:
+          type: string
+          description: User to impersonate
+          example: alice
+        className:
+          type: string
+          description: Application Java/Spark main class
+          example: com.example.MySparkJob
+        args:
+          type: array
+          description: Command line arguments
+          items:
+            type: string
+        jars:
+          type: array
+          description: JARs to include
+          items:
+            type: string
+        pyFiles:
+          type: array
+          description: Python files
+          items:
+            type: string
+        driverMemory:
+          type: string
+          description: Driver memory
+          example: 512m
+        executorMemory:
+          type: string
+          description: Executor memory
+          example: 1g
+        numExecutors:
+          type: integer
+          description: Number of executors
+          example: 4
+        conf:
+          type: object
+          description: Spark configuration
+    BatchState:
+      type: object
+      description: Current batch job state
+      properties:
+        id:
+          type: integer
+          example: 0
+        state:
+          type: string
+          example: success
+    BatchList:
+      type: object
+      description: Paginated list of batch jobs
+      properties:
+        from:
+          type: integer
+          example: 0
+        total:
+          type: integer
+          example: 3
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Batch'
+    Batch:
+      type: object
+      description: A batch Spark job
+      properties:
+        id:
+          type: integer
+          description: Batch identifier
+          example: 0
+        appId:
+          type: string
+          description: Spark application ID
+          example: application_1234567890_0001
+        appInfo:
+          type: object
+          description: Spark application information
+        log:
+          type: array
+          description: Recent log lines
+          items:
+            type: string
+        state:
+          type: string
+          description: Batch state
+          enum:
+          - not_started
+          - starting
+          - running
+          - dead
+          - shutting_down
+          - success
+          example: success
