@@ -4,9 +4,21 @@ description: Apache Livy is a service that enables easy interaction with a Spark
   submitting Spark jobs or snippets of Spark code, retrieving results synchronously or asynchronously, and managing Spark
   contexts across multiple users. Licensed under Apache 2.0.
 type: Index
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/apache-livy.png
 tags:
 - Big Data
 - Interactive Computing
@@ -18,21 +30,51 @@ modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/apache-livy/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-- aid: apache-livy:rest-api
-  name: Apache Livy REST API
-  description: The Livy REST API provides endpoints for creating and managing interactive Spark sessions, submitting batch
-    Spark jobs, executing code statements (Python, Scala, R, SQL), and retrieving job results and logs.
+- aid: apache-livy:apache-livy-batches-api
+  name: Apache Livy Batches API
+  description: Batch Spark job submission
   humanURL: https://livy.apache.org/docs/latest/rest-api.html
   tags:
-  - Batch Jobs
-  - REST
-  - Sessions
-  - Spark
+  - Batches
   properties:
+  - type: OpenAPI
+    url: openapi/apache-livy-batches-api-openapi.yml
   - type: Documentation
     url: https://livy.apache.org/docs/latest/rest-api.html
+  - type: X-NaftikoCapability
+    url: capabilities/rest-batches.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/rest-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/rest-statements.yaml
+- aid: apache-livy:apache-livy-sessions-api
+  name: Apache Livy Sessions API
+  description: Interactive Spark session management
+  humanURL: https://livy.apache.org/docs/latest/rest-api.html
+  tags:
+  - Sessions
+  properties:
   - type: OpenAPI
-    url: openapi/apache-livy-rest-api.yaml
+    url: openapi/apache-livy-sessions-api-openapi.yml
+  - type: Documentation
+    url: https://livy.apache.org/docs/latest/rest-api.html
+  - type: X-NaftikoCapability
+    url: capabilities/rest-batches.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/rest-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/rest-statements.yaml
+- aid: apache-livy:apache-livy-statements-api
+  name: Apache Livy Statements API
+  description: Code statement execution within sessions
+  humanURL: https://livy.apache.org/docs/latest/rest-api.html
+  tags:
+  - Statements
+  properties:
+  - type: OpenAPI
+    url: openapi/apache-livy-statements-api-openapi.yml
+  - type: Documentation
+    url: https://livy.apache.org/docs/latest/rest-api.html
   - type: X-NaftikoCapability
     url: capabilities/rest-batches.yaml
   - type: X-NaftikoCapability
