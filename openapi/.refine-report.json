@@ -1,0 +1,18 @@
+{
+  "provider": "apache-livy",
+  "sources": [
+    "apache-livy-batches-api-openapi.yml",
+    "apache-livy-sessions-api-openapi.yml",
+    "apache-livy-statements-api-openapi.yml"
+  ],
+  "outputs": [
+    "apache-livy-batches-api-openapi.yml",
+    "apache-livy-sessions-api-openapi.yml",
+    "apache-livy-statements-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

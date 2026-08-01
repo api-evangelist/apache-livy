@@ -1,0 +1,840 @@
+openapi: 3.0.3
+info:
+  title: Apache Livy REST API
+  description: REST API for interacting with Apache Spark clusters via Livy. Supports interactive sessions, batch job submission, statement execution, and result retrieval.
+  version: 0.8.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  contact:
+    email: dev@livy.apache.org
+servers:
+- url: http://localhost:8998
+  description: Apache Livy server
+tags:
+- name: Sessions
+  description: Interactive Spark session management
+- name: Statements
+  description: Code statement execution within sessions
+- name: Batches
+  description: Batch Spark job submission
+paths:
+  /sessions:
+    get:
+      operationId: listSessions
+      summary: Apache livy Apache Livy List Sessions
+      description: List all active interactive Spark sessions.
+      tags: [Sessions]
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: from
+        in: query
+        schema:
+          type: integer
+        example: 0
+        description: Session index to start from
+      - name: size
+        in: query
+        schema:
+          type: integer
+        example: 20
+        description: Number of sessions to return
+      responses:
+        '200':
+          description: List of sessions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionList'
+              examples:
+                listSessions200Example:
+                  summary: Default listSessions 200 response
+                  x-microcks-default: true
+                  value:
+                    from: 0
+                    total: 5
+                    sessions: []
+    post:
+      operationId: createSession
+      summary: Apache livy Apache Livy Create Session
+      description: Create a new interactive Spark session.
+      tags: [Sessions]
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSessionRequest'
+            examples:
+              createSessionRequestExample:
+                summary: Default createSession request
+                x-microcks-default: true
+                value:
+                  kind: pyspark
+                  proxyUser: alice
+                  jars: []
+                  pyFiles: []
+                  files: []
+                  driverMemory: 512m
+                  driverCores: 1
+                  executorMemory: 1g
+                  executorCores: 1
+                  numExecutors: 2
+                  conf: {}
+      responses:
+        '201':
+          description: Session created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+              examples:
+                createSession201Example:
+                  summary: Default createSession 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    appId: application_1234567890_0001
+                    owner: hdfs
+                    proxyUser: alice
+                    kind: pyspark
+                    log: []
+                    state: idle
+                    appInfo: {}
+  /sessions/{sessionId}:
+    get:
+      operationId: getSession
+      summary: Apache livy Apache Livy Get Session
+      description: Get the details and state of a specific session.
+      tags: [Sessions]
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+        description: Session identifier
+      responses:
+        '200':
+          description: Session details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+              examples:
+                getSession200Example:
+                  summary: Default getSession 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    appId: application_1234567890_0001
+                    owner: hdfs
+                    proxyUser: alice
+                    kind: pyspark
+                    log: []
+                    state: idle
+                    appInfo: {}
+        '404':
+          description: Session not found
+    delete:
+      operationId: deleteSession
+      summary: Apache livy Apache Livy Delete Session
+      description: Delete an interactive session and its associated Spark context.
+      tags: [Sessions]
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+        description: Session identifier
+      responses:
+        '200':
+          description: Session deleted
+  /sessions/{sessionId}/state:
+    get:
+      operationId: getSessionState
+      summary: Apache livy Apache Livy Get Session State
+      description: Get the current state of a session.
+      tags: [Sessions]
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+        description: Session identifier
+      responses:
+        '200':
+          description: Session state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionState'
+              examples:
+                getSessionState200Example:
+                  summary: Default getSessionState 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    state: idle
+  /sessions/{sessionId}/log:
+    get:
+      operationId: getSessionLog
+      summary: Apache livy Apache Livy Get Session Log
+      description: Retrieve log lines from a session.
+      tags: [Sessions]
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+      - name: from
+        in: query
+        schema:
+          type: integer
+        example: 0
+        description: Log line index to start from
+      - name: size
+        in: query
+        schema:
+          type: integer
+        example: 100
+        description: Number of log lines to return
+      responses:
+        '200':
+          description: Session log
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+              examples:
+                getSessionLog200Example:
+                  summary: Default getSessionLog 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    from: 0
+                    size: 100
+                    log: []
+  /sessions/{sessionId}/statements:
+    get:
+      operationId: listStatements
+      summary: Apache livy Apache Livy List Statements
+      description: List all statements executed in a session.
+      tags: [Statements]
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+      responses:
+        '200':
+          description: List of statements
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatementList'
+              examples:
+                listStatements200Example:
+                  summary: Default listStatements 200 response
+                  x-microcks-default: true
+                  value:
+                    total_statements: 5
+                    statements: []
+    post:
+      operationId: runStatement
+      summary: Apache livy Apache Livy Run Statement
+      description: Execute a code statement in the session.
+      tags: [Statements]
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatementRequest'
+            examples:
+              runStatementRequestExample:
+                summary: Default runStatement request
+                x-microcks-default: true
+                value:
+                  code: 1 + 1
+                  kind: spark
+      responses:
+        '200':
+          description: Statement result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statement'
+              examples:
+                runStatement200Example:
+                  summary: Default runStatement 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    code: sc.parallelize([1,2,3]).count()
+                    state: available
+                    output: {}
+  /sessions/{sessionId}/statements/{statementId}:
+    get:
+      operationId: getStatement
+      summary: Apache livy Apache Livy Get Statement
+      description: Get the status and output of a specific statement.
+      tags: [Statements]
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+      - name: statementId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+      responses:
+        '200':
+          description: Statement details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statement'
+              examples:
+                getStatement200Example:
+                  summary: Default getStatement 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    code: sc.parallelize([1,2,3]).count()
+                    state: available
+                    output: {}
+  /batches:
+    get:
+      operationId: listBatches
+      summary: Apache livy Apache Livy List Batches
+      description: List all batch Spark jobs.
+      tags: [Batches]
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: from
+        in: query
+        schema:
+          type: integer
+        example: 0
+      - name: size
+        in: query
+        schema:
+          type: integer
+        example: 20
+      responses:
+        '200':
+          description: List of batch jobs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchList'
+              examples:
+                listBatches200Example:
+                  summary: Default listBatches 200 response
+                  x-microcks-default: true
+                  value:
+                    from: 0
+                    total: 3
+                    sessions: []
+    post:
+      operationId: createBatch
+      summary: Apache livy Apache Livy Create Batch
+      description: Submit a new batch Spark job.
+      tags: [Batches]
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBatchRequest'
+            examples:
+              createBatchRequestExample:
+                summary: Default createBatch request
+                x-microcks-default: true
+                value:
+                  file: s3://my-bucket/jobs/my-spark-job.py
+                  proxyUser: alice
+                  className: com.example.MySparkJob
+                  args: []
+                  jars: []
+                  pyFiles: []
+                  driverMemory: 512m
+                  executorMemory: 1g
+                  numExecutors: 4
+                  conf: {}
+      responses:
+        '201':
+          description: Batch job created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Batch'
+              examples:
+                createBatch201Example:
+                  summary: Default createBatch 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    appId: application_1234567890_0001
+                    appInfo: {}
+                    log: []
+                    state: success
+  /batches/{batchId}:
+    get:
+      operationId: getBatch
+      summary: Apache livy Apache Livy Get Batch
+      description: Get the details of a specific batch job.
+      tags: [Batches]
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: batchId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+      responses:
+        '200':
+          description: Batch job details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Batch'
+              examples:
+                getBatch200Example:
+                  summary: Default getBatch 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    appId: application_1234567890_0001
+                    appInfo: {}
+                    log: []
+                    state: success
+        '404':
+          description: Batch not found
+    delete:
+      operationId: deleteBatch
+      summary: Apache livy Apache Livy Delete Batch
+      description: Cancel and delete a batch Spark job.
+      tags: [Batches]
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: batchId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+      responses:
+        '200':
+          description: Batch deleted
+  /batches/{batchId}/state:
+    get:
+      operationId: getBatchState
+      summary: Apache livy Apache Livy Get Batch State
+      description: Get the current state of a batch job.
+      tags: [Batches]
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: batchId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+      responses:
+        '200':
+          description: Batch state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchState'
+              examples:
+                getBatchState200Example:
+                  summary: Default getBatchState 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    state: success
+  /batches/{batchId}/log:
+    get:
+      operationId: getBatchLog
+      summary: Apache livy Apache Livy Get Batch Log
+      description: Retrieve log lines from a batch job.
+      tags: [Batches]
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      parameters:
+      - name: batchId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 0
+      - name: from
+        in: query
+        schema:
+          type: integer
+        example: 0
+      - name: size
+        in: query
+        schema:
+          type: integer
+        example: 100
+      responses:
+        '200':
+          description: Batch log
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+              examples:
+                getBatchLog200Example:
+                  summary: Default getBatchLog 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 0
+                    from: 0
+                    size: 100
+                    log: []
+components:
+  schemas:
+    Session:
+      type: object
+      description: An interactive Spark session
+      properties:
+        id:
+          type: integer
+          description: Session identifier
+          example: 0
+        appId:
+          type: string
+          description: Spark application ID
+          example: application_1234567890_0001
+        owner:
+          type: string
+          description: Session owner
+          example: hdfs
+        proxyUser:
+          type: string
+          description: Proxy user for the session
+          example: alice
+        kind:
+          type: string
+          description: Session type
+          enum: [spark, pyspark, sparkr, sql]
+          example: pyspark
+        log:
+          type: array
+          description: Recent log lines
+          items:
+            type: string
+        state:
+          type: string
+          description: Session state
+          enum: [not_started, starting, idle, busy, shutting_down, error, dead, killed, success]
+          example: idle
+        appInfo:
+          type: object
+          description: Spark application information
+    SessionList:
+      type: object
+      description: Paginated list of sessions
+      properties:
+        from:
+          type: integer
+          example: 0
+        total:
+          type: integer
+          example: 5
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Session'
+    SessionState:
+      type: object
+      description: Current session state
+      properties:
+        id:
+          type: integer
+          example: 0
+        state:
+          type: string
+          example: idle
+    CreateSessionRequest:
+      type: object
+      description: Parameters for creating an interactive session
+      properties:
+        kind:
+          type: string
+          description: Session programming language
+          enum: [spark, pyspark, sparkr, sql]
+          example: pyspark
+        proxyUser:
+          type: string
+          description: User to impersonate when running the session
+          example: alice
+        jars:
+          type: array
+          description: JARs to include on the classpath
+          items:
+            type: string
+        pyFiles:
+          type: array
+          description: Python files to include
+          items:
+            type: string
+        files:
+          type: array
+          description: Files to include
+          items:
+            type: string
+        driverMemory:
+          type: string
+          description: Driver memory amount
+          example: 512m
+        driverCores:
+          type: integer
+          description: Number of driver cores
+          example: 1
+        executorMemory:
+          type: string
+          description: Executor memory amount
+          example: 1g
+        executorCores:
+          type: integer
+          description: Number of executor cores
+          example: 1
+        numExecutors:
+          type: integer
+          description: Number of executors
+          example: 2
+        conf:
+          type: object
+          description: Spark configuration key-value pairs
+    Statement:
+      type: object
+      description: A code statement executed in a session
+      properties:
+        id:
+          type: integer
+          description: Statement identifier
+          example: 0
+        code:
+          type: string
+          description: The code that was executed
+          example: sc.parallelize([1,2,3]).count()
+        state:
+          type: string
+          description: Statement execution state
+          enum: [waiting, running, available, error, cancelling, cancelled]
+          example: available
+        output:
+          type: object
+          description: Statement output
+          properties:
+            status:
+              type: string
+              example: ok
+            execution_count:
+              type: integer
+              example: 0
+            data:
+              type: object
+    StatementList:
+      type: object
+      description: List of statements
+      properties:
+        total_statements:
+          type: integer
+          example: 5
+        statements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Statement'
+    StatementRequest:
+      type: object
+      description: Request to execute a code statement
+      required: [code]
+      properties:
+        code:
+          type: string
+          description: Code to execute
+          example: 1 + 1
+        kind:
+          type: string
+          description: Code type (defaults to session kind)
+          enum: [spark, pyspark, sparkr, sql]
+    Batch:
+      type: object
+      description: A batch Spark job
+      properties:
+        id:
+          type: integer
+          description: Batch identifier
+          example: 0
+        appId:
+          type: string
+          description: Spark application ID
+          example: application_1234567890_0001
+        appInfo:
+          type: object
+          description: Spark application information
+        log:
+          type: array
+          description: Recent log lines
+          items:
+            type: string
+        state:
+          type: string
+          description: Batch state
+          enum: [not_started, starting, running, dead, shutting_down, success]
+          example: success
+    BatchList:
+      type: object
+      description: Paginated list of batch jobs
+      properties:
+        from:
+          type: integer
+          example: 0
+        total:
+          type: integer
+          example: 3
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Batch'
+    BatchState:
+      type: object
+      description: Current batch job state
+      properties:
+        id:
+          type: integer
+          example: 0
+        state:
+          type: string
+          example: success
+    CreateBatchRequest:
+      type: object
+      description: Parameters for creating a batch Spark job
+      required: [file]
+      properties:
+        file:
+          type: string
+          description: File to execute
+          example: s3://my-bucket/jobs/my-spark-job.py
+        proxyUser:
+          type: string
+          description: User to impersonate
+          example: alice
+        className:
+          type: string
+          description: Application Java/Spark main class
+          example: com.example.MySparkJob
+        args:
+          type: array
+          description: Command line arguments
+          items:
+            type: string
+        jars:
+          type: array
+          description: JARs to include
+          items:
+            type: string
+        pyFiles:
+          type: array
+          description: Python files
+          items:
+            type: string
+        driverMemory:
+          type: string
+          description: Driver memory
+          example: 512m
+        executorMemory:
+          type: string
+          description: Executor memory
+          example: 1g
+        numExecutors:
+          type: integer
+          description: Number of executors
+          example: 4
+        conf:
+          type: object
+          description: Spark configuration
+    Log:
+      type: object
+      description: Log output
+      properties:
+        id:
+          type: integer
+          example: 0
+        from:
+          type: integer
+          example: 0
+        size:
+          type: integer
+          example: 100
+        log:
+          type: array
+          items:
+            type: string
