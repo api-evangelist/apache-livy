@@ -41,12 +41,6 @@ apis:
     url: openapi/apache-livy-batches-api-openapi.yml
   - type: Documentation
     url: https://livy.apache.org/docs/latest/rest-api.html
-  - type: X-NaftikoCapability
-    url: capabilities/rest-batches.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/rest-sessions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/rest-statements.yaml
 - aid: apache-livy:apache-livy-sessions-api
   name: Apache Livy Sessions API
   description: Interactive Spark session management
@@ -58,12 +52,6 @@ apis:
     url: openapi/apache-livy-sessions-api-openapi.yml
   - type: Documentation
     url: https://livy.apache.org/docs/latest/rest-api.html
-  - type: X-NaftikoCapability
-    url: capabilities/rest-batches.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/rest-sessions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/rest-statements.yaml
 - aid: apache-livy:apache-livy-statements-api
   name: Apache Livy Statements API
   description: Code statement execution within sessions
@@ -75,13 +63,14 @@ apis:
     url: openapi/apache-livy-statements-api-openapi.yml
   - type: Documentation
     url: https://livy.apache.org/docs/latest/rest-api.html
-  - type: X-NaftikoCapability
-    url: capabilities/rest-batches.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/rest-sessions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/rest-statements.yaml
 common:
+- type: IssueTracker
+  url: https://github.com/apache/incubator-livy/issues
+- type: CodeOfConduct
+  url: https://github.com/apache/.github/blob/main/.github/CODE_OF_CONDUCT.md
+- type: License
+  name: Apache-2.0
+  url: https://github.com/apache/incubator-livy/blob/master/LICENSE
 - type: AgenticAccess
   url: agentic-access/apache-livy-agentic-access.yml
 - type: VulnerabilityDisclosure
