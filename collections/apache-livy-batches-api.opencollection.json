@@ -1,0 +1,138 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apache Livy REST Batches API",
+    "version": "0.8.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Batches",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Apache livy Apache Livy List Batches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8998/batches",
+            "params": [
+              {
+                "name": "from",
+                "value": "0",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "20",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all batch Spark jobs."
+        },
+        {
+          "info": {
+            "name": "Apache livy Apache Livy Create Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8998/batches",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a new batch Spark job."
+        },
+        {
+          "info": {
+            "name": "Apache livy Apache Livy Get Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8998/batches/:batchId",
+            "params": [
+              {
+                "name": "batchId",
+                "value": "0",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the details of a specific batch job."
+        },
+        {
+          "info": {
+            "name": "Apache livy Apache Livy Delete Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8998/batches/:batchId",
+            "params": [
+              {
+                "name": "batchId",
+                "value": "0",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancel and delete a batch Spark job."
+        },
+        {
+          "info": {
+            "name": "Apache livy Apache Livy Get Batch State",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8998/batches/:batchId/state",
+            "params": [
+              {
+                "name": "batchId",
+                "value": "0",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the current state of a batch job."
+        },
+        {
+          "info": {
+            "name": "Apache livy Apache Livy Get Batch Log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8998/batches/:batchId/log",
+            "params": [
+              {
+                "name": "batchId",
+                "value": "0",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "0",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "100",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve log lines from a batch job."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

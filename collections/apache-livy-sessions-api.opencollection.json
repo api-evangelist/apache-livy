@@ -1,0 +1,145 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apache Livy REST Batches Sessions API",
+    "version": "0.8.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Apache livy Apache Livy List Sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8998/sessions",
+            "params": [
+              {
+                "name": "from",
+                "value": "0",
+                "type": "query",
+                "description": "Session index to start from"
+              },
+              {
+                "name": "size",
+                "value": "20",
+                "type": "query",
+                "description": "Number of sessions to return"
+              }
+            ]
+          },
+          "docs": "List all active interactive Spark sessions."
+        },
+        {
+          "info": {
+            "name": "Apache livy Apache Livy Create Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8998/sessions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new interactive Spark session."
+        },
+        {
+          "info": {
+            "name": "Apache livy Apache Livy Get Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8998/sessions/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "0",
+                "type": "path",
+                "description": "Session identifier"
+              }
+            ]
+          },
+          "docs": "Get the details and state of a specific session."
+        },
+        {
+          "info": {
+            "name": "Apache livy Apache Livy Delete Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8998/sessions/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "0",
+                "type": "path",
+                "description": "Session identifier"
+              }
+            ]
+          },
+          "docs": "Delete an interactive session and its associated Spark context."
+        },
+        {
+          "info": {
+            "name": "Apache livy Apache Livy Get Session State",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8998/sessions/:sessionId/state",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "0",
+                "type": "path",
+                "description": "Session identifier"
+              }
+            ]
+          },
+          "docs": "Get the current state of a session."
+        },
+        {
+          "info": {
+            "name": "Apache livy Apache Livy Get Session Log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8998/sessions/:sessionId/log",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "0",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "0",
+                "type": "query",
+                "description": "Log line index to start from"
+              },
+              {
+                "name": "size",
+                "value": "100",
+                "type": "query",
+                "description": "Number of log lines to return"
+              }
+            ]
+          },
+          "docs": "Retrieve log lines from a session."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

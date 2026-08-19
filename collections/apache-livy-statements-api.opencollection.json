@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apache Livy REST Batches Statements API",
+    "version": "0.8.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Statements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Apache livy Apache Livy List Statements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8998/sessions/:sessionId/statements",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "0",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List all statements executed in a session."
+        },
+        {
+          "info": {
+            "name": "Apache livy Apache Livy Run Statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8998/sessions/:sessionId/statements",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "0",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute a code statement in the session."
+        },
+        {
+          "info": {
+            "name": "Apache livy Apache Livy Get Statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8998/sessions/:sessionId/statements/:statementId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "0",
+                "type": "path"
+              },
+              {
+                "name": "statementId",
+                "value": "0",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the status and output of a specific statement."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
