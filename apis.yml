@@ -22,6 +22,12 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/apache-liv
 tags:
 - Big Data
 - Interactive Computing
+- Open-Source
+- REST
+- Spark
+tags_raw:
+- Big Data
+- Interactive Computing
 - Open Source
 - REST
 - Spark
