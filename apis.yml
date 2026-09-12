@@ -84,6 +84,8 @@ apis:
   - type: Documentation
     url: https://livy.apache.org/docs/latest/rest-api.html
 common:
+- type: Website
+  url: https://www.apache.org/
 - type: IssueTracker
   url: https://github.com/apache/incubator-livy/issues
 - type: CodeOfConduct
