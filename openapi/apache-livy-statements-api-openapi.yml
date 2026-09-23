@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Apache Livy REST Batches Statements API
+  title: Apache Livy REST Statements API
   description: REST API for interacting with Apache Spark clusters via Livy. Supports interactive sessions, batch job submission, statement execution, and result retrieval.
   version: 0.8.0
   license:
@@ -167,6 +167,17 @@ components:
               example: 0
             data:
               type: object
+    StatementList:
+      type: object
+      description: List of statements
+      properties:
+        total_statements:
+          type: integer
+          example: 5
+        statements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Statement'
     StatementRequest:
       type: object
       description: Request to execute a code statement
@@ -185,14 +196,3 @@ components:
           - pyspark
           - sparkr
           - sql
-    StatementList:
-      type: object
-      description: List of statements
-      properties:
-        total_statements:
-          type: integer
-          example: 5
-        statements:
-          type: array
-          items:
-            $ref: '#/components/schemas/Statement'

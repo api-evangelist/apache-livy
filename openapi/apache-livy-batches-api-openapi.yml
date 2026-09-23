@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Apache Livy REST Batches API
   description: REST API for interacting with Apache Spark clusters via Livy. Supports interactive sessions, batch job submission, statement execution, and result retrieval.
@@ -246,54 +246,6 @@ components:
           type: array
           items:
             type: string
-    CreateBatchRequest:
-      type: object
-      description: Parameters for creating a batch Spark job
-      required:
-      - file
-      properties:
-        file:
-          type: string
-          description: File to execute
-          example: s3://my-bucket/jobs/my-spark-job.py
-        proxyUser:
-          type: string
-          description: User to impersonate
-          example: alice
-        className:
-          type: string
-          description: Application Java/Spark main class
-          example: com.example.MySparkJob
-        args:
-          type: array
-          description: Command line arguments
-          items:
-            type: string
-        jars:
-          type: array
-          description: JARs to include
-          items:
-            type: string
-        pyFiles:
-          type: array
-          description: Python files
-          items:
-            type: string
-        driverMemory:
-          type: string
-          description: Driver memory
-          example: 512m
-        executorMemory:
-          type: string
-          description: Executor memory
-          example: 1g
-        numExecutors:
-          type: integer
-          description: Number of executors
-          example: 4
-        conf:
-          type: object
-          description: Spark configuration
     BatchState:
       type: object
       description: Current batch job state
@@ -349,3 +301,51 @@ components:
           - shutting_down
           - success
           example: success
+    CreateBatchRequest:
+      type: object
+      description: Parameters for creating a batch Spark job
+      required:
+      - file
+      properties:
+        file:
+          type: string
+          description: File to execute
+          example: s3://my-bucket/jobs/my-spark-job.py
+        proxyUser:
+          type: string
+          description: User to impersonate
+          example: alice
+        className:
+          type: string
+          description: Application Java/Spark main class
+          example: com.example.MySparkJob
+        args:
+          type: array
+          description: Command line arguments
+          items:
+            type: string
+        jars:
+          type: array
+          description: JARs to include
+          items:
+            type: string
+        pyFiles:
+          type: array
+          description: Python files
+          items:
+            type: string
+        driverMemory:
+          type: string
+          description: Driver memory
+          example: 512m
+        executorMemory:
+          type: string
+          description: Executor memory
+          example: 1g
+        numExecutors:
+          type: integer
+          description: Number of executors
+          example: 4
+        conf:
+          type: object
+          description: Spark configuration

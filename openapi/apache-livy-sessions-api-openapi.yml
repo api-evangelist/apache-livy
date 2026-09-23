@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Apache Livy REST Batches Sessions API
+  title: Apache Livy REST Sessions API
   description: REST API for interacting with Apache Spark clusters via Livy. Supports interactive sessions, batch job submission, statement execution, and result retrieval.
   version: 0.8.0
   license:
@@ -260,20 +260,6 @@ components:
           type: array
           items:
             type: string
-    SessionList:
-      type: object
-      description: Paginated list of sessions
-      properties:
-        from:
-          type: integer
-          example: 0
-        total:
-          type: integer
-          example: 5
-        sessions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Session'
     Session:
       type: object
       description: An interactive Spark session
@@ -390,3 +376,17 @@ components:
         state:
           type: string
           example: idle
+    SessionList:
+      type: object
+      description: Paginated list of sessions
+      properties:
+        from:
+          type: integer
+          example: 0
+        total:
+          type: integer
+          example: 5
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Session'
