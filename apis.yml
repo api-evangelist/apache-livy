@@ -36,7 +36,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/apache-liv
 tags:
 - Big Data
 - Interactive Computing
-- Open-Source
+- Open Source
 - REST
 - Spark
 tags_raw:
@@ -45,6 +45,7 @@ tags_raw:
 - Open Source
 - REST
 - Spark
+- Open-Source
 created: '2026-03-16'
 modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/apache-livy/refs/heads/main/apis.yml

@@ -243,6 +243,85 @@ paths:
                     log: []
 components:
   schemas:
+    SessionList:
+      type: object
+      description: Paginated list of sessions
+      properties:
+        from:
+          type: integer
+          example: 0
+        total:
+          type: integer
+          example: 5
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Session'
+    SessionState:
+      type: object
+      description: Current session state
+      properties:
+        id:
+          type: integer
+          example: 0
+        state:
+          type: string
+          example: idle
+    CreateSessionRequest:
+      type: object
+      description: Parameters for creating an interactive session
+      properties:
+        kind:
+          type: string
+          description: Session programming language
+          enum:
+          - spark
+          - pyspark
+          - sparkr
+          - sql
+          example: pyspark
+        proxyUser:
+          type: string
+          description: User to impersonate when running the session
+          example: alice
+        jars:
+          type: array
+          description: JARs to include on the classpath
+          items:
+            type: string
+        pyFiles:
+          type: array
+          description: Python files to include
+          items:
+            type: string
+        files:
+          type: array
+          description: Files to include
+          items:
+            type: string
+        driverMemory:
+          type: string
+          description: Driver memory amount
+          example: 512m
+        driverCores:
+          type: integer
+          description: Number of driver cores
+          example: 1
+        executorMemory:
+          type: string
+          description: Executor memory amount
+          example: 1g
+        executorCores:
+          type: integer
+          description: Number of executor cores
+          example: 1
+        numExecutors:
+          type: integer
+          description: Number of executors
+          example: 2
+        conf:
+          type: object
+          description: Spark configuration key-value pairs
     Log:
       type: object
       description: Log output
@@ -311,82 +390,3 @@ components:
         appInfo:
           type: object
           description: Spark application information
-    CreateSessionRequest:
-      type: object
-      description: Parameters for creating an interactive session
-      properties:
-        kind:
-          type: string
-          description: Session programming language
-          enum:
-          - spark
-          - pyspark
-          - sparkr
-          - sql
-          example: pyspark
-        proxyUser:
-          type: string
-          description: User to impersonate when running the session
-          example: alice
-        jars:
-          type: array
-          description: JARs to include on the classpath
-          items:
-            type: string
-        pyFiles:
-          type: array
-          description: Python files to include
-          items:
-            type: string
-        files:
-          type: array
-          description: Files to include
-          items:
-            type: string
-        driverMemory:
-          type: string
-          description: Driver memory amount
-          example: 512m
-        driverCores:
-          type: integer
-          description: Number of driver cores
-          example: 1
-        executorMemory:
-          type: string
-          description: Executor memory amount
-          example: 1g
-        executorCores:
-          type: integer
-          description: Number of executor cores
-          example: 1
-        numExecutors:
-          type: integer
-          description: Number of executors
-          example: 2
-        conf:
-          type: object
-          description: Spark configuration key-value pairs
-    SessionState:
-      type: object
-      description: Current session state
-      properties:
-        id:
-          type: integer
-          example: 0
-        state:
-          type: string
-          example: idle
-    SessionList:
-      type: object
-      description: Paginated list of sessions
-      properties:
-        from:
-          type: integer
-          example: 0
-        total:
-          type: integer
-          example: 5
-        sessions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Session'
