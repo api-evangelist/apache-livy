@@ -243,6 +243,74 @@ paths:
                     log: []
 components:
   schemas:
+    Log:
+      type: object
+      description: Log output
+      properties:
+        id:
+          type: integer
+          example: 0
+        from:
+          type: integer
+          example: 0
+        size:
+          type: integer
+          example: 100
+        log:
+          type: array
+          items:
+            type: string
+    Session:
+      type: object
+      description: An interactive Spark session
+      properties:
+        id:
+          type: integer
+          description: Session identifier
+          example: 0
+        appId:
+          type: string
+          description: Spark application ID
+          example: application_1234567890_0001
+        owner:
+          type: string
+          description: Session owner
+          example: hdfs
+        proxyUser:
+          type: string
+          description: Proxy user for the session
+          example: alice
+        kind:
+          type: string
+          description: Session type
+          enum:
+          - spark
+          - pyspark
+          - sparkr
+          - sql
+          example: pyspark
+        log:
+          type: array
+          description: Recent log lines
+          items:
+            type: string
+        state:
+          type: string
+          description: Session state
+          enum:
+          - not_started
+          - starting
+          - idle
+          - busy
+          - shutting_down
+          - error
+          - dead
+          - killed
+          - success
+          example: idle
+        appInfo:
+          type: object
+          description: Spark application information
     SessionList:
       type: object
       description: Paginated list of sessions
@@ -322,71 +390,3 @@ components:
         conf:
           type: object
           description: Spark configuration key-value pairs
-    Log:
-      type: object
-      description: Log output
-      properties:
-        id:
-          type: integer
-          example: 0
-        from:
-          type: integer
-          example: 0
-        size:
-          type: integer
-          example: 100
-        log:
-          type: array
-          items:
-            type: string
-    Session:
-      type: object
-      description: An interactive Spark session
-      properties:
-        id:
-          type: integer
-          description: Session identifier
-          example: 0
-        appId:
-          type: string
-          description: Spark application ID
-          example: application_1234567890_0001
-        owner:
-          type: string
-          description: Session owner
-          example: hdfs
-        proxyUser:
-          type: string
-          description: Proxy user for the session
-          example: alice
-        kind:
-          type: string
-          description: Session type
-          enum:
-          - spark
-          - pyspark
-          - sparkr
-          - sql
-          example: pyspark
-        log:
-          type: array
-          description: Recent log lines
-          items:
-            type: string
-        state:
-          type: string
-          description: Session state
-          enum:
-          - not_started
-          - starting
-          - idle
-          - busy
-          - shutting_down
-          - error
-          - dead
-          - killed
-          - success
-          example: idle
-        appInfo:
-          type: object
-          description: Spark application information
