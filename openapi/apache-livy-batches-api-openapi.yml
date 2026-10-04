@@ -229,54 +229,6 @@ paths:
                     log: []
 components:
   schemas:
-    Batch:
-      type: object
-      description: A batch Spark job
-      properties:
-        id:
-          type: integer
-          description: Batch identifier
-          example: 0
-        appId:
-          type: string
-          description: Spark application ID
-          example: application_1234567890_0001
-        appInfo:
-          type: object
-          description: Spark application information
-        log:
-          type: array
-          description: Recent log lines
-          items:
-            type: string
-        state:
-          type: string
-          description: Batch state
-          enum:
-          - not_started
-          - starting
-          - running
-          - dead
-          - shutting_down
-          - success
-          example: success
-    Log:
-      type: object
-      description: Log output
-      properties:
-        id:
-          type: integer
-          example: 0
-        from:
-          type: integer
-          example: 0
-        size:
-          type: integer
-          example: 100
-        log:
-          type: array
-          items:
-            type: string
     BatchList:
       type: object
       description: Paginated list of batch jobs
@@ -349,3 +301,51 @@ components:
         conf:
           type: object
           description: Spark configuration
+    Batch:
+      type: object
+      description: A batch Spark job
+      properties:
+        id:
+          type: integer
+          description: Batch identifier
+          example: 0
+        appId:
+          type: string
+          description: Spark application ID
+          example: application_1234567890_0001
+        appInfo:
+          type: object
+          description: Spark application information
+        log:
+          type: array
+          description: Recent log lines
+          items:
+            type: string
+        state:
+          type: string
+          description: Batch state
+          enum:
+          - not_started
+          - starting
+          - running
+          - dead
+          - shutting_down
+          - success
+          example: success
+    Log:
+      type: object
+      description: Log output
+      properties:
+        id:
+          type: integer
+          example: 0
+        from:
+          type: integer
+          example: 0
+        size:
+          type: integer
+          example: 100
+        log:
+          type: array
+          items:
+            type: string

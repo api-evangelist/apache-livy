@@ -243,23 +243,30 @@ paths:
                     log: []
 components:
   schemas:
-    Log:
+    SessionState:
       type: object
-      description: Log output
+      description: Current session state
       properties:
         id:
           type: integer
           example: 0
+        state:
+          type: string
+          example: idle
+    SessionList:
+      type: object
+      description: Paginated list of sessions
+      properties:
         from:
           type: integer
           example: 0
-        size:
+        total:
           type: integer
-          example: 100
-        log:
+          example: 5
+        sessions:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/Session'
     Session:
       type: object
       description: An interactive Spark session
@@ -311,30 +318,6 @@ components:
         appInfo:
           type: object
           description: Spark application information
-    SessionList:
-      type: object
-      description: Paginated list of sessions
-      properties:
-        from:
-          type: integer
-          example: 0
-        total:
-          type: integer
-          example: 5
-        sessions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Session'
-    SessionState:
-      type: object
-      description: Current session state
-      properties:
-        id:
-          type: integer
-          example: 0
-        state:
-          type: string
-          example: idle
     CreateSessionRequest:
       type: object
       description: Parameters for creating an interactive session
@@ -390,3 +373,20 @@ components:
         conf:
           type: object
           description: Spark configuration key-value pairs
+    Log:
+      type: object
+      description: Log output
+      properties:
+        id:
+          type: integer
+          example: 0
+        from:
+          type: integer
+          example: 0
+        size:
+          type: integer
+          example: 100
+        log:
+          type: array
+          items:
+            type: string
