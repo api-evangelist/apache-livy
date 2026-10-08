@@ -85,6 +85,12 @@ apis:
   - type: Documentation
     url: https://livy.apache.org/docs/latest/rest-api.html
 common:
+- type: Plans
+  url: plans/apache-livy-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/apache-livy-rate-limits.yml
+- type: FinOps
+  url: finops/apache-livy-finops.yml
 - type: Website
   url: https://www.apache.org/
 - type: IssueTracker
