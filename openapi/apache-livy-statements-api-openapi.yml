@@ -132,6 +132,35 @@ paths:
                     output: {}
 components:
   schemas:
+    StatementRequest:
+      type: object
+      description: Request to execute a code statement
+      required:
+      - code
+      properties:
+        code:
+          type: string
+          description: Code to execute
+          example: 1 + 1
+        kind:
+          type: string
+          description: Code type (defaults to session kind)
+          enum:
+          - spark
+          - pyspark
+          - sparkr
+          - sql
+    StatementList:
+      type: object
+      description: List of statements
+      properties:
+        total_statements:
+          type: integer
+          example: 5
+        statements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Statement'
     Statement:
       type: object
       description: A code statement executed in a session
@@ -167,32 +196,3 @@ components:
               example: 0
             data:
               type: object
-    StatementList:
-      type: object
-      description: List of statements
-      properties:
-        total_statements:
-          type: integer
-          example: 5
-        statements:
-          type: array
-          items:
-            $ref: '#/components/schemas/Statement'
-    StatementRequest:
-      type: object
-      description: Request to execute a code statement
-      required:
-      - code
-      properties:
-        code:
-          type: string
-          description: Code to execute
-          example: 1 + 1
-        kind:
-          type: string
-          description: Code type (defaults to session kind)
-          enum:
-          - spark
-          - pyspark
-          - sparkr
-          - sql

@@ -229,29 +229,36 @@ paths:
                     log: []
 components:
   schemas:
-    BatchList:
+    Batch:
       type: object
-      description: Paginated list of batch jobs
-      properties:
-        from:
-          type: integer
-          example: 0
-        total:
-          type: integer
-          example: 3
-        sessions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Batch'
-    BatchState:
-      type: object
-      description: Current batch job state
+      description: A batch Spark job
       properties:
         id:
           type: integer
+          description: Batch identifier
           example: 0
+        appId:
+          type: string
+          description: Spark application ID
+          example: application_1234567890_0001
+        appInfo:
+          type: object
+          description: Spark application information
+        log:
+          type: array
+          description: Recent log lines
+          items:
+            type: string
         state:
           type: string
+          description: Batch state
+          enum:
+          - not_started
+          - starting
+          - running
+          - dead
+          - shutting_down
+          - success
           example: success
     CreateBatchRequest:
       type: object
@@ -301,36 +308,29 @@ components:
         conf:
           type: object
           description: Spark configuration
-    Batch:
+    BatchList:
       type: object
-      description: A batch Spark job
+      description: Paginated list of batch jobs
+      properties:
+        from:
+          type: integer
+          example: 0
+        total:
+          type: integer
+          example: 3
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Batch'
+    BatchState:
+      type: object
+      description: Current batch job state
       properties:
         id:
           type: integer
-          description: Batch identifier
           example: 0
-        appId:
-          type: string
-          description: Spark application ID
-          example: application_1234567890_0001
-        appInfo:
-          type: object
-          description: Spark application information
-        log:
-          type: array
-          description: Recent log lines
-          items:
-            type: string
         state:
           type: string
-          description: Batch state
-          enum:
-          - not_started
-          - starting
-          - running
-          - dead
-          - shutting_down
-          - success
           example: success
     Log:
       type: object
