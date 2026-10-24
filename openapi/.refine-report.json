@@ -1,24 +1,19 @@
 {
   "provider": "apache-livy",
   "sources": [
-    "_original/apache-livy-rest-api.yaml"
+    "_original/apache-livy-openapi.json"
   ],
   "outputs": [
-    "apache-livy-batches-api-openapi.yml",
-    "apache-livy-sessions-api-openapi.yml",
-    "apache-livy-statements-api-openapi.yml"
+    "apache-livy-queues-api-openapi.yml",
+    "apache-livy-status-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
-    "apache-livy-rest-api.yaml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "apache-livy-openapi.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "apis.yml register: written (+2 apis, 2 total)"
   ],
-  "skipped": [
-    "apache-livy-batches-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "apache-livy-sessions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "apache-livy-statements-api-openapi.yml: previously refined output, superseded by openapi/_original/"
-  ]
+  "skipped": []
 }
