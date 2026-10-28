@@ -1,4 +1,4 @@
-# Apache Livy (apache-livy)
+# Apache Livy
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,124 +64,192 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Apache Livy is a service that enables easy interaction with a Spark cluster over a REST interface. It allows submitting Spark jobs or snippets of Spark code, retrieving results synchronously or asynchronously, and managing Spark contexts across multiple users.
+Apache Livy is a service that enables easy interaction with a Spark cluster over a REST interface. It allows submitting Spark jobs or snippets of Spark code, retrieving results synchronously or asynchronously, and managing Spark contexts across multiple users. Licensed under Apache 2.0.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/apache-livy/refs/heads/main/apis.yml)
+**Areas:** Big Data · Interactive Computing · Open Source · REST · Spark
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+## Apache Livy on APIs.io
 
-## Tags:
+Everything profiled for Apache Livy is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/apache-livy/](https://apis.io/providers/apache-livy/)** — or go straight to one of the APIs or properties below.
 
- - Big Data, Interactive Computing, Open Source, REST, Spark
+### APIs (3)
 
-## Timestamps
+- [Apache Livy Batches API](https://apis.io/apis/apache-livy/apache-livy-batches-api/) — Batch Spark job submission
+- [Apache Livy Sessions API](https://apis.io/apis/apache-livy/apache-livy-sessions-api/) — Interactive Spark session management
+- [Apache Livy Statements API](https://apis.io/apis/apache-livy/apache-livy-statements-api/) — Code statement execution within sessions
 
-- **Created:** 2026-03-16
-- **Modified:** 2026-04-19
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Apache Livy REST API
-The Livy REST API provides endpoints for creating and managing interactive Spark sessions, submitting batch Spark jobs, executing code statements, and retrieving job results and logs.
+#### Agentic access (1)
 
-**Human URL:** [https://livy.apache.org/docs/latest/rest-api.html](https://livy.apache.org/docs/latest/rest-api.html)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags:
+- [Apache Livy Agentic Access](https://apis.io/agentic-access/apache-livy/apache-livy-agentic-access/)
 
- - Batch Jobs, REST, Sessions, Spark
+#### JSON Schema (12)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://livy.apache.org/docs/latest/rest-api.html)
-- [OpenAPI](openapi/apache-livy-rest-api.yaml)
+- [Batch](https://apis.io/schemas/apache-livy/rest-api-batch/)
+- [BatchList](https://apis.io/schemas/apache-livy/rest-api-batch-list/)
+- [BatchState](https://apis.io/schemas/apache-livy/rest-api-batch-state/)
+- [CreateBatchRequest](https://apis.io/schemas/apache-livy/rest-api-create-batch-request/)
+- [CreateSessionRequest](https://apis.io/schemas/apache-livy/rest-api-create-session-request/)
+- [Log](https://apis.io/schemas/apache-livy/rest-api-log/)
+- [Session](https://apis.io/schemas/apache-livy/rest-api-session/)
+- [SessionList](https://apis.io/schemas/apache-livy/rest-api-session-list/)
+- [SessionState](https://apis.io/schemas/apache-livy/rest-api-session-state/)
+- [Statement](https://apis.io/schemas/apache-livy/rest-api-statement/)
+- [StatementList](https://apis.io/schemas/apache-livy/rest-api-statement-list/)
+- [StatementRequest](https://apis.io/schemas/apache-livy/rest-api-statement-request/)
 
-## Common Properties
+#### JSON Structure (12)
 
-- [GitHubOrganization](https://github.com/apache)
-- [GitHubRepository](https://github.com/apache/incubator-livy)
+Data models expressed in JSON Structure.
+
+- [Rest Api Batch List Structure](https://apis.io/json-structure/apache-livy/rest-api-batch-list-structure/)
+- [Rest Api Batch State Structure](https://apis.io/json-structure/apache-livy/rest-api-batch-state-structure/)
+- [Rest Api Batch Structure](https://apis.io/json-structure/apache-livy/rest-api-batch-structure/)
+- [Rest Api Create Batch Request Structure](https://apis.io/json-structure/apache-livy/rest-api-create-batch-request-structure/)
+- [Rest Api Create Session Request Structure](https://apis.io/json-structure/apache-livy/rest-api-create-session-request-structure/)
+- [Rest Api Log Structure](https://apis.io/json-structure/apache-livy/rest-api-log-structure/)
+- [Rest Api Session List Structure](https://apis.io/json-structure/apache-livy/rest-api-session-list-structure/)
+- [Rest Api Session State Structure](https://apis.io/json-structure/apache-livy/rest-api-session-state-structure/)
+- [Rest Api Session Structure](https://apis.io/json-structure/apache-livy/rest-api-session-structure/)
+- [Rest Api Statement List Structure](https://apis.io/json-structure/apache-livy/rest-api-statement-list-structure/)
+- [Rest Api Statement Request Structure](https://apis.io/json-structure/apache-livy/rest-api-statement-request-structure/)
+- [Rest Api Statement Structure](https://apis.io/json-structure/apache-livy/rest-api-statement-structure/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Apache Livy Rest Api Context](https://apis.io/jsonld/apache-livy/apache-livy-rest-api-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Apache Livy Vocabulary](https://apis.io/vocabularies/apache-livy/apache-livy-vocabulary/)
+
+#### Examples (12)
+
+Example requests and responses.
+
+- [Rest Api Batch Example](https://apis.io/examples/apache-livy/rest-api-batch-example/)
+- [Rest Api Batch List Example](https://apis.io/examples/apache-livy/rest-api-batch-list-example/)
+- [Rest Api Batch State Example](https://apis.io/examples/apache-livy/rest-api-batch-state-example/)
+- [Rest Api Create Batch Request Example](https://apis.io/examples/apache-livy/rest-api-create-batch-request-example/)
+- [Rest Api Create Session Request Example](https://apis.io/examples/apache-livy/rest-api-create-session-request-example/)
+- [Rest Api Log Example](https://apis.io/examples/apache-livy/rest-api-log-example/)
+- [Rest Api Session Example](https://apis.io/examples/apache-livy/rest-api-session-example/)
+- [Rest Api Session List Example](https://apis.io/examples/apache-livy/rest-api-session-list-example/)
+- [Rest Api Session State Example](https://apis.io/examples/apache-livy/rest-api-session-state-example/)
+- [Rest Api Statement Example](https://apis.io/examples/apache-livy/rest-api-statement-example/)
+- [Rest Api Statement List Example](https://apis.io/examples/apache-livy/rest-api-statement-list-example/)
+- [Rest Api Statement Request Example](https://apis.io/examples/apache-livy/rest-api-statement-request-example/)
+
+#### Collections (3)
+
+Postman and Open Collection request collections.
+
+- [Apache Livy REST Batches API](https://apis.io/collections/apache-livy/open-apache-livy-batches-api/)
+- [Apache Livy REST Batches Sessions API](https://apis.io/collections/apache-livy/open-apache-livy-sessions-api/)
+- [Apache Livy REST Batches Statements API](https://apis.io/collections/apache-livy/open-apache-livy-statements-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Apache Livy — jsonschema rules](https://apis.io/rules/apache-livy/apache-livy-jsonschema-spectral-rules/)
+- [Apache Livy API Rules](https://apis.io/rules/apache-livy/apache-livy-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Apache Livy Domain Security](https://apis.io/security/apache-livy/apache-livy-domain-security/)
+- [Apache Livy Vulnerability Disclosure](https://apis.io/security/apache-livy/apache-livy-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Apache Livy Plans Pricing](https://apis.io/plans/apache-livy/apache-livy-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Apache Livy Rate Limits](https://apis.io/rate-limits/apache-livy/apache-livy-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Apache Livy Finops](https://apis.io/finops/apache-livy/apache-livy-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.apache.org/)
 - [Documentation](https://livy.apache.org/docs/latest/)
-- [GettingStarted](https://livy.apache.org/get-started/)
-- [TermsOfService](https://www.apache.org/licenses/LICENSE-2.0)
-- [Versioning](https://livy.apache.org/download/)
-- [SpectralRules](rules/apache-livy-spectral-rules.yml)
-- [Vocabulary](vocabulary/apache-livy-vocabulary.yaml)
-- [NaftikoCapability](capabilities/spark-job-management.yaml)
+- [Getting started](https://livy.apache.org/get-started/)
+- [Terms of service](https://www.apache.org/licenses/LICENSE-2.0)
+- [GitHub](https://github.com/apache)
 
-## Features
+## API Evangelist rating
 
-| Name | Description |
-|------|-------------|
-| Interactive Spark Sessions | Create persistent Spark contexts for interactive code execution in Python, Scala, R, and SQL. |
-| Batch Job Submission | Submit batch Spark jobs without creating an interactive session. |
-| Multi-Language Support | Execute code in PySpark, Spark (Scala), SparkR, and SQL. |
-| Multi-User Impersonation | Proxy user support for multi-tenant Spark cluster access. |
-| Asynchronous Execution | Submit jobs and poll for results asynchronously. |
-| Log Access | Retrieve driver and executor logs for debugging. |
-| REST Interface | Simple HTTP REST API for Spark cluster interaction without native clients. |
+**Kin Score 31.1** — thin · rubric 0.24.0 · scored 2026-10-17
 
-## Use Cases
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 49.7 |
+| Contract governance | 27.3 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 21.4 |
+| Access clarity | 18.4 |
 
-| Name | Description |
-|------|-------------|
-| Notebook Integration | Power Jupyter, Zeppelin, and other notebooks with Spark backends via Livy. |
-| Data Engineering Pipelines | Submit Spark batch jobs from orchestration tools like Airflow and Oozie. |
-| Interactive Data Exploration | Execute ad-hoc Spark code for exploratory data analysis. |
-| Multi-Tenant Spark Access | Enable multiple users to share a Spark cluster with isolation via Livy sessions. |
+**Agent readiness 20.4** — agent-aware
 
-## Integrations
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
 
-| Name | Description |
-|------|-------------|
-| Apache Spark | Livy requires a Spark cluster and acts as the REST gateway to Spark. |
-| Apache Zeppelin | Zeppelin notebook backend using Livy for distributed Spark execution. |
-| Jupyter Notebook | Jupyter sparkmagic extension uses Livy for remote Spark kernel access. |
-| Apache Airflow | Airflow LivyOperator for submitting Spark batch jobs from DAGs. |
-| Amazon EMR | Livy is available as an EMR application for REST-based Spark access. |
+**Regulatory alignment 20.6** — Horizontal (data, software, accessibility, platform)
 
-## Artifacts
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/apache-livy/](https://apis.io/providers/apache-livy/).
 
-Machine-readable API specifications organized by format.
+## How this profile is made
 
-### OpenAPI
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-- [Apache Livy REST API](openapi/apache-livy-rest-api.yaml)
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Apache Livy: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-### JSON Schema
+## Open an issue
 
-12 schema files extracted from the REST API OpenAPI specification.
-
-### JSON Structure
-
-12 JSON Structure files converted from JSON Schema files.
-
-### Examples
-
-12 example JSON files generated from JSON Schema definitions.
-
-## Capabilities
-
-Naftiko capabilities organized as shared per-API definitions composed into customer-facing workflows.
-
-### Shared Per-API Definitions
-
-- [Apache Livy REST API](capabilities/shared/livy-rest-api.yaml) — 7 operations for session, statement, and batch management
-
-### Workflow Capabilities
-
-| Workflow | APIs Combined | Tools | Persona |
-|----------|--------------|-------|---------|
-| [Apache Livy Spark Job Management](capabilities/spark-job-management.yaml) | Apache Livy REST API | 7 | Data Engineer, Data Scientist |
-
-## Vocabulary
-
-- [Apache Livy Vocabulary](vocabulary/apache-livy-vocabulary.yaml) — Unified taxonomy mapping 3 resources, 7 actions, 1 workflow, and 2 personas
-
-## Rules
-
-- [Apache Livy Spectral Rules](rules/apache-livy-spectral-rules.yml) — 13 rules across 7 categories enforcing Apache Livy REST API conventions
-
-## Maintainers
-
-**FN:** Kin Lane
-
-**Email:** info@apievangelist.com
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/apache-livy/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
